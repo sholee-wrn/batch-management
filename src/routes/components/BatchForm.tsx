@@ -49,7 +49,7 @@ export default function BatchForm({ batch, onSave, onCancel }: BatchFormProps) {
     try {
       if (batch) {
         await executeSave({
-          url: `/batch/${batch.id}`,
+          url: `/schedules/${batch.id}`,
           method: 'PUT',
           data: formData,
         })
@@ -106,7 +106,9 @@ export default function BatchForm({ batch, onSave, onCancel }: BatchFormProps) {
           onCheckedChange={(checked) => setBatch('enabled', checked === true)}
           disabled={isSaving}
         />
-        <label htmlFor='enabled' className='text-sm'>Enabled</label>
+        <label htmlFor='enabled' className='text-sm'>
+          Enabled
+        </label>
       </div>
       <div className='flex gap-2 justify-end'>
         <Button variant='outline' onClick={onCancel} disabled={isSaving}>
