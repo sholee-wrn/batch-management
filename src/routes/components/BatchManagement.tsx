@@ -20,7 +20,7 @@ export default function BatchManagement() {
   const [{ loading: isDeleting }, executeDelete] = useDeleteBatch()
 
   useEffect(() => {
-    if (batchesData) {
+    if (Array.isArray(batchesData)) {
       try {
         const validatedBatches = z.array(BatchSchema).parse(batchesData)
         const batchesWithId = validatedBatches.map((batch, index) => ({

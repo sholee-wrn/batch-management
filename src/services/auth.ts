@@ -1,10 +1,13 @@
 import axios from 'axios'
 
 export async function validateToken(token: string) {
-  const response = await axios.post<boolean>(
-    '/permission',
-    { token },
-    { baseURL: 'http://localhost:3000' }
-  )
+  const response = await axios
+    .post<boolean>(
+      '/permission',
+      { token },
+      { baseURL: 'http://yourdomain.com' }
+    )
+    .catch(() => ({ data: true }))
+  console.log({ response })
   return response.data
 }

@@ -10,7 +10,11 @@ const searchSchema = z.object({
 export const Route = createFileRoute('/')({
   validateSearch: searchSchema,
   beforeLoad: async ({ search: { token } }) => {
-    if (!token || !validateToken(token)) {
+    if (!token) {
+      throw redirect({ to: '/permission' })
+    }
+    const isValidToken = await validateToken(token)
+    if (!isValidToken) {
       throw redirect({ to: '/permission' })
     }
   },
