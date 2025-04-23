@@ -11,9 +11,16 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as PermissionImport } from './routes/permission'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const PermissionRoute = PermissionImport.update({
+  id: '/permission',
+  path: '/permission',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -32,6 +39,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/permission': {
+      id: '/permission'
+      path: '/permission'
+      fullPath: '/permission'
+      preLoaderRoute: typeof PermissionImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +53,37 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/permission': typeof PermissionRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/permission': typeof PermissionRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/permission': typeof PermissionRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/permission'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/permission'
+  id: '__root__' | '/' | '/permission'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PermissionRoute: typeof PermissionRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PermissionRoute: PermissionRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +96,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/permission"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/permission": {
+      "filePath": "permission.tsx"
     }
   }
 }
