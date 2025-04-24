@@ -8,6 +8,5 @@ export async function validateToken(token: string) {
       { baseURL: 'http://yourdomain.com' }
     )
     .catch(() => ({ data: true }))
-  console.log({ response })
   return response.data
 }
