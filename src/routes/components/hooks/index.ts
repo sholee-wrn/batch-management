@@ -15,6 +15,13 @@ export const useSaveBatch = () => {
   )
 }
 
+export const useRefreshBatch = () => {
+  return useAxios<Batch>(
+    { url: '/schedules/refresh', method: 'POST' },
+    { manual: true }
+  )
+}
+
 export const useDeleteBatch = () => {
   return useAxios<Batch>(
     { url: '/schedules', method: 'DELETE' },

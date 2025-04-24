@@ -6,7 +6,7 @@ import { RefreshCw, Plus } from 'lucide-react'
 import { type BatchWithId, BatchSchema } from '@/schema/batch'
 import BatchTable from './BatchTable'
 import BatchForm from './BatchForm'
-import { useFetchBatches, useDeleteBatch } from './hooks'
+import { useFetchBatches, useDeleteBatch, useRefreshBatch } from './hooks'
 import z from 'zod'
 
 export default function BatchManagement() {
@@ -18,6 +18,7 @@ export default function BatchManagement() {
   const [{ data: batchesData, loading: isLoadingBatches }, fetchBatches] =
     useFetchBatches()
   const [{ loading: isDeleting }, executeDelete] = useDeleteBatch()
+  const [{ loading: isRefreshing }, refreshBatch] = useRefreshBatch()
 
   useEffect(() => {
     if (Array.isArray(batchesData)) {
@@ -61,7 +62,7 @@ export default function BatchManagement() {
   }
 
   const refreshData = () => {
-    fetchBatches()
+    refreshBatch()
   }
 
   const isLoading = isLoadingBatches || isDeleting
@@ -76,10 +77,10 @@ export default function BatchManagement() {
               size='icon'
               variant='outline'
               onClick={refreshData}
-              disabled={isLoading}
+              disabled={isRefreshing}
             >
               <RefreshCw
-                className={'h-4 w-4' + (isLoading ? ' animate-spin' : '')}
+                className={'h-4 w-4' + (isRefreshing ? ' animate-spin' : '')}
               />
             </Button>
             <Dialog open={open} onOpenChange={setOpen}>
