@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import BatchManagement from './components/BatchManagement'
 import z from 'zod'
 import { validateToken } from '@/services/auth'
@@ -11,11 +11,12 @@ export const Route = createFileRoute('/')({
   validateSearch: searchSchema,
   beforeLoad: async ({ search: { token } }) => {
     if (!token) {
-      throw redirect({ to: '/permission' })
+      throw new Error('Authentication required')
     }
+
     const isValidToken = await validateToken(token)
     if (!isValidToken) {
-      throw redirect({ to: '/permission' })
+      throw new Error('Authentication required')
     }
   },
   component: BatchManagement,
