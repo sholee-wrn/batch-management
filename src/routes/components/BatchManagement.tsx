@@ -47,7 +47,7 @@ export default function BatchManagement() {
   const handleDelete = async (id: number) => {
     try {
       await executeDelete({
-        url: `/schedules/${id}`,
+        url: `/api/schedules/${id}`,
       })
       await fetchBatches()
       setConfirmDelete(undefined)

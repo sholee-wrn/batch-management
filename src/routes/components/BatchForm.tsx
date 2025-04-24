@@ -49,7 +49,7 @@ export default function BatchForm({ batch, onSave, onCancel }: BatchFormProps) {
     try {
       if (batch) {
         await executeSave({
-          url: `/schedules/${batch.id}`,
+          url: `/api/schedules/${batch.id}`,
           method: 'PUT',
           data: formData,
         })

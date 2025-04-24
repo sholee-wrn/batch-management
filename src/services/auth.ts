@@ -6,9 +6,7 @@ type Token = {
 }
 export async function validateToken(token: string) {
   const response = await axios
-    .get<Token>('/validateOtt?token=' + token, {
-      baseURL: import.meta.env.VITE_AUTH_API_URL,
-    })
+    .get<Token>('auth/validateOtt?token=' + token)
     .catch(() => null)
   return response
 }
